@@ -27,6 +27,18 @@ class MainActivity : AppCompatActivity() {
                 super.onPageFinished(view, url)
             }
         }
+        goButton.setOnClickListener {
+            val enteredUrl = urlEditText.text.toString()
+            val validUrl = addHttpSchemeIfMissing(enteredUrl)
+            webView.loadUrl(validUrl)
+        }
 
     }
 }
+private fun addHttpSchemeIfMissing(url: String): String {
+        return if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            "https://$url"
+        } else {
+            url
+        }
+    }
